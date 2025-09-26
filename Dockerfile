@@ -5,7 +5,8 @@ WORKDIR /app
 COPY Pipfile Pipfile.lock ./
 
 FROM base AS deps-prod
-RUN PIPENV_NOSPIN=1 pipenv install --system --deploy
+RUN PIPENV_NOSPIN=1 pipenv install --system --deploy \
+    && pip uninstall pipenv -y
 
 FROM base AS deps-dev
 RUN PIPENV_NOSPIN=1 pipenv install --system --deploy --dev
